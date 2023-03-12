@@ -12,6 +12,7 @@ while True:
             file.close()
             todos.append(todo)
 
+
             file = open('todos.txt', 'w')
             file.writelines(todos)
             file.close()
@@ -23,6 +24,8 @@ while True:
             for item in todos:
                 new_item = item.strip('\n')
                 new_todos.append(new_item)
+
+
 
 
 

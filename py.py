@@ -7,27 +7,23 @@ while True:
         case 'add':
             todo = input(" Enter a todo: ") + "\n"
 
-            file = open('todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+            with open('todos.txt', 'r') as file:
+                 todos = file.readlines()
+
+
             todos.append(todo)
 
+            with open('todos.txt', 'w') as file:
+                 file.writelines(todos)
 
-            file = open('todos.txt', 'w')
-            file.writelines(todos)
-            file.close()
         case 'show':
-            file = open('todos.txt', 'r')
-            todos = file.readlines()
-
-            new_todos = []
-            for item in todos:
-                new_item = item.strip('\n')
-                new_todos.append(new_item)
+            with open('todos.txt', 'r') as file:
+                 todos = file.readlines()
 
 
-
-
+            # list comprehension
+            new_todos = [item.strip('\n') for item in todos]
+            # list comprehension
 
 
             for index, item in enumerate(new_todos):

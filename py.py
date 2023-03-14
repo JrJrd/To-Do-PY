@@ -2,45 +2,44 @@ while True:
     user_action = input(" type add, show, edit, complete or exit: ")
     user_action = user_action.strip()
 
-
-    if 'add' in user_action:
+    if user_action.startswith("add"):
         todo = user_action[4:]
-
-        with open('todos.txt', 'r') as file:
+        with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'r') as file:
             todos = file.readlines()
 
-        todos.append(todo)
+        todos.append(todo + '\n')
 
         with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'w') as file:
             file.writelines(todos)
 
-    if "show" in user_action:
+    elif user_action.startswith("show"):
         with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'r') as file:
             todos = file.readlines()
 
-        # list comprehension
-        new_todos = [item.strip('\n') for item in todos]
-        # list comprehension
-
-        for index, item in enumerate(new_todos):
+        for index, item in enumerate(todos):
+            item = item.strip('\n')
             row = f"{index + 1}-{item}"
             print(row)
 
-    if 'edit' in user_action:
-        number = int(input("Number of the todo to edit: "))
-        number = number - 1
+    elif user_action.startswith("edit"):
+        try:
+            number = int(user_action[5:])
+            print(number)
+            number = number - 1
 
-        with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'r') as file:
-            todos = file.readlines()
-            print('here is todos existing files', todos)
-        new_todo = input("enter new todo: ")
-        todos[number] = new_todo + '\n'
-        with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'w') as file:
-            file.writelines(todos)
+            with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'r') as file:
+                todos = file.readlines()
+                print('here is todos existing files', todos)
+            new_todo = input("enter new todo: ")
+            todos[number] = new_todo + '\n'
+            with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'w') as file:
+                file.writelines(todos)
+        except ValueError:
+            print("Not a valid command")
+            continue
 
-    if 'complete' in user_action:
-
-        number = int(input("Number of the todo to complete: "))
+    elif user_action.startswith("complete"):
+        number = int(user_action[9:])
 
         with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'r') as file:
             todos = file.readlines()
@@ -50,9 +49,9 @@ while True:
         with open(r'C:\Users\seaer\PycharmProjects\pythonProject\todos.txt', 'w') as file:
             file.writelines(todos)
 
-
-
-    if 'exit' in user_action:
+    elif 'exit' in user_action:
         break
+    else:
+        print("What?")
 
 print("bye!")
